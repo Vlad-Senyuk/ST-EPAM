@@ -1,5 +1,6 @@
 package helpers;
 
 public enum Type {
-    From, To
+    FROM,
+    TO
 }

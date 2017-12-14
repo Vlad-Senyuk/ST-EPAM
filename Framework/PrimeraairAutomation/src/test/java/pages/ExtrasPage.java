@@ -12,16 +12,16 @@ public class ExtrasPage extends AbstractPage {
 
     private String baseUrl;
 
-    @FindBy(xpath = "/html/body/div[3]/div/form/div[2]/div[2]/div/div[1]/div[2]/div/div[1]/div[2]/div/div[2]/div[2]/input")
+    @FindBy(name = "firstName_1")
     private WebElement inputFirstName;
 
     @FindBy(name = "lastName_1")
     private WebElement inputLastName;
 
-    @FindBy(xpath = "/html/body/div[3]/div/form/div[2]/div[2]/div/div[1]/div[2]/div/div[1]/div[2]/div/div[2]/div[4]/input")
+    @FindBy(xpath = "//input[@ng-value='passenger.dateOfBirth']")
     private WebElement inputDate;
 
-    @FindBy(xpath = "/html/body/div[3]/div/form/div[2]/div[1]/div[2]/div/div[2]/div/div/button[2]")
+    @FindBy(xpath = "//button[@ng-click='continue()']")
     private WebElement continueButton;
 
     public ExtrasPage(WebDriver driver) {
@@ -36,7 +36,7 @@ public class ExtrasPage extends AbstractPage {
     }
 
     public void selectYear(String year){
-        WebElement yearSelector = driver.findElement(By.xpath("/html/body/div[8]/div[2]/div[2]/table/thead/tr[1]/th[2]/select[2]"));
+        WebElement yearSelector = driver.findElement(By.className("yearselect"));
         List<WebElement> years = yearSelector.findElements(By.tagName("option"));
         WebElement inputYear = null;
 

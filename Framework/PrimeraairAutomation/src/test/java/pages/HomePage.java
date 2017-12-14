@@ -12,6 +12,9 @@ import java.util.List;
 public class HomePage extends AbstractPage {
 
     private final String BASE_URL = "https://primeraair.com/";
+    private final String LANGUAGE_ROOT_ELEMENT = "//ul[@class='dropdown-menu flag-menu']";
+    private final String COUNTRY_ROOT_ELEMENT = "//div[@class='row countries']";
+    private final String CITY_ROOT_ELEMENT = "//*[@id=\"populate_to_airports\"]";
 
     @FindBy(id = "from_string")
     private WebElement inputFromName;
@@ -25,26 +28,23 @@ public class HomePage extends AbstractPage {
     @FindBy(id = "arrive_string")
     private WebElement inputArriveName;
 
-    @FindBy(xpath = "/html/body/section/div[3]/div[1]/div/div/div[1]/div[1]/form/div[4]/div[4]/button")
+    @FindBy(xpath = "//div[@class='col-sm-3 col-xs-12 ']//button[@class='btn btn-block btn-primary']")
     private WebElement searchTripButton;
 
-    @FindBy(xpath = "/html/body/div[1]/nav/div/div[2]/ul/li[5]/a/i")
+    @FindBy(xpath = "//a[@class='dropdown-toggle']//i[@class='fa fa-chevron-down']")
     private WebElement languageButton;
 
-    @FindBy(xpath = "/html/body/div[1]/nav/div/div[2]/ul/li[6]/a/i")
+    @FindBy(xpath = "//a[@class='dropdown-toggle']//i[@class='fa fa-search']")
     private WebElement searchButton;
 
     @FindBy(id = "search-input")
     private WebElement inputSearch;
 
-    @FindBy(xpath = "/html/body/div[1]/nav/div/div[2]/ul/li[6]/ul/li/form/div/span/button")
+    @FindBy(xpath = "//span[@class='input-group-btn']//button[@type='submit']")
     private WebElement searchSubmit;
 
-    @FindBy(xpath = "/html/body/section/div[3]/div[1]/div/div/div[1]/div[1]/form/div[4]/div[5]/div[2]/div/div/div[1]/div[2]")
+    @FindBy(xpath = "//div[@ng-click='clickPassengers()']")
     private WebElement countOfPassengersButton;
-
-    //@FindBy(xpath = "/html/body/footer/div[1]/div/div[1]/div[2]/div/a[1]")
-    //private WebElement facebookButton;
 
     @FindBy(xpath = "//div[@class='container']//a[@href='https://www.facebook.com/primeraair']")
     private WebElement facebookButton;
@@ -83,7 +83,7 @@ public class HomePage extends AbstractPage {
     }
 
     private void setLanguage(String language){
-        WebElement rootElement = driver.findElement(By.xpath("/html/body/div[1]/nav/div/div[2]/ul/li[5]/ul"));
+        WebElement rootElement = driver.findElement(By.xpath(LANGUAGE_ROOT_ELEMENT));
         List<WebElement> selectedLanguage = rootElement.findElements(By.className("col-sm-4"));
 
         WebElement selectedElement = null;
@@ -113,15 +113,15 @@ public class HomePage extends AbstractPage {
 
     public void searchTrip(String from, String cityFrom, String to, String cityTo) throws InterruptedException {
         inputFromName.click();
-        selectCountry(from, Type.From).click();
-        selectCity(cityFrom, Type.From).click();
+        selectCountry(from, Type.FROM).click();
+        selectCity(cityFrom, Type.FROM).click();
         inputToName.click();
-        selectCountry(to, Type.To).click();
-        selectCity(cityTo, Type.To).click();
+        selectCountry(to, Type.TO).click();
+        selectCity(cityTo, Type.TO).click();
         Thread.sleep(5000);
-        selectEnabledDateOfTrip(Type.From).click();
+        selectEnabledDateOfTrip(Type.FROM).click();
         Thread.sleep(2000);
-        selectEnabledDateOfTrip(Type.To).click();
+        selectEnabledDateOfTrip(Type.TO).click();
         countOfPassengersButton.click();
         searchTripButton.click();
     }
@@ -151,26 +151,20 @@ public class HomePage extends AbstractPage {
         new PassengersPage(driver, driver.getCurrentUrl()).fillInfoFromPassengers(email, city);
     }
 
-    private WebElement selectCountry(String from, Type type){
+    private WebElement selectCountry(String from, Type type) {
         WebElement retWebElement = null;
 
         WebElement rootElement = null;
 
-        if(type.equals(Type.From)) {
-            rootElement = driver.findElement(
-                    By.xpath("/html/body/section/div[3]/div[1]/div/div/div[1]/div[1]/form/div[2]/div[4]/div[2]/div[2]/div[1]/div")
-            );
-        }else if(type.equals(Type.To)){
-            rootElement = driver.findElement(
-                    By.xpath("/html/body/section/div[3]/div[1]/div/div/div[1]/div[1]/form/div[2]/div[5]/div[2]/div[2]/div[1]/div")
-            );
-        }
+        rootElement = driver.findElement(
+                By.xpath(COUNTRY_ROOT_ELEMENT)
+        );
 
         List<WebElement> elements = rootElement.findElements(By.tagName("a"));
 
-        for (WebElement item:
-             elements) {
-            if (item.getText().contains(from)){
+        for (WebElement item :
+                elements) {
+            if (item.getText().contains(from)) {
                 retWebElement = item;
             }
         }
@@ -178,25 +172,19 @@ public class HomePage extends AbstractPage {
         return retWebElement;
     }
 
-    private WebElement selectCity(String city, Type type){
+    private WebElement selectCity(String city, Type type) {
         WebElement retWebElement = null;
         WebElement rootElement = null;
 
-        if(type.equals(Type.From)) {
-            rootElement = driver.findElement(
-                    By.xpath("/html/body/section/div[3]/div[1]/div/div/div[1]/div[1]/form/div[2]/div[4]/div[2]/div[2]/div[2]")
-            );
-        }else if(type.equals(Type.To)){
-            rootElement = driver.findElement(
-              By.xpath("//*[@id=\"populate_to_airports\"]")
-            );
-        }
+        rootElement = driver.findElement(
+                By.xpath(CITY_ROOT_ELEMENT)
+        );
 
         List<WebElement> elements = rootElement.findElements(By.tagName("div"));
 
-        for (WebElement item:
+        for (WebElement item :
                 elements) {
-            if (item.getText().contains(city)){
+            if (item.getText().contains(city)) {
                 retWebElement = item;
             }
         }
@@ -205,11 +193,11 @@ public class HomePage extends AbstractPage {
     }
 
     private WebElement selectEnabledDateOfTrip(Type type){
-        WebElement rootElement = driver.findElement(By.xpath("/html/body/section/div[3]/div[1]/div/div/div[1]/div[1]/form/div[6]/div[2]"));
+        WebElement rootElement = driver.findElement(By.id("forShow"));
         List<WebElement> elements = rootElement.findElements(By.tagName("td"));
         WebElement firstEnabledDate = null;
 
-        if (type.equals(Type.From)) {
+        if (type.equals(Type.FROM)) {
             for (WebElement item :
                     elements) {
                 if (!item.getAttribute("class").contains("disabled")) {
@@ -217,7 +205,7 @@ public class HomePage extends AbstractPage {
                     break;
                 }
             }
-        }else if(type.equals(Type.To)) {
+        }else if(type.equals(Type.TO)) {
             for (int i = elements.size() - 1; i > -1; --i) {
                 if (!elements.get(i).getAttribute("class").contains("disabled")) {
                     firstEnabledDate = elements.get(i);

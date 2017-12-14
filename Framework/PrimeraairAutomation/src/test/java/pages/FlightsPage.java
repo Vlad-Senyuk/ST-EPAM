@@ -9,7 +9,7 @@ public class FlightsPage extends AbstractPage {
 
     private String baseUrl;
 
-    @FindBy(xpath = "/html/body/div[3]/div/form/div[1]/div[1]/div[3]/div/div[2]/div/div/button[2]")
+    @FindBy(xpath = "//button[@ng-click='continue()']")
     private WebElement continueButton;
 
     public FlightsPage(WebDriver driver) {

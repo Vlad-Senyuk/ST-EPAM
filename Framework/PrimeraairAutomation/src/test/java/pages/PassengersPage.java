@@ -18,7 +18,7 @@ public class PassengersPage extends AbstractPage {
     @FindBy(id = "passenger_city")
     private WebElement inputCity;
 
-    @FindBy(xpath = "/html/body/div[3]/div/form/div[3]/div[1]/div[2]/div/div[2]/div/div/button[2]")
+    @FindBy(xpath = "//button[@ng-click='continue()']")
     private WebElement continueButton;
 
     public PassengersPage(WebDriver driver) {

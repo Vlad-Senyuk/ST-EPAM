@@ -3,7 +3,7 @@ package helpers;
 import java.util.Random;
 
 public class Helper {
-    private static String symbols = "qwertyuiopasdfghjklzxcvbnm";
+    private static String symbols = "qwertyuiopasdfghjklzxcvbnm1234567890";
 
     public static String getRandomString(int length){
         StringBuilder randomString = new StringBuilder();

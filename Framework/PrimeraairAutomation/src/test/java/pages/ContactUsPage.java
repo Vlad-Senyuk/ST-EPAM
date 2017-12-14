@@ -9,22 +9,22 @@ public class ContactUsPage extends AbstractPage {
 
     private final String BASE_URL = "https://primeraair.com/about-us/contact-us/";
 
-    @FindBy(xpath = "/html/body/div[3]/div/div[4]/div/form[1]/div/div/div/div/div[1]/div/input")
+    @FindBy(name = "name")
     private WebElement inputName;
 
-    @FindBy(xpath = "/html/body/div[3]/div/div[4]/div/form[1]/div/div/div/div/div[2]/div/input")
+    @FindBy(name = "bookingNumber")
     private WebElement inputBookingNumber;
 
-    @FindBy(xpath = "/html/body/div[3]/div/div[4]/div/form[1]/div/div/div/div/div[3]/div/input")
+    @FindBy(name = "email")
     private WebElement inputEmail;
 
-    @FindBy(xpath = "/html/body/div[3]/div/div[4]/div/form[1]/div/div/div/div/div[4]/div/input")
+    @FindBy(name = "phoneNumber")
     private WebElement inputPhoneNumber;
 
-    @FindBy(xpath = "/html/body/div[3]/div/div[4]/div/form[1]/div/div/div/div/div[6]/div/textarea")
+    @FindBy(name = "textMessage")
     private WebElement inputMessage;
 
-    @FindBy(xpath = "/html/body/div[3]/div/div[4]/div/div[1]")
+    @FindBy(className = "flash")
     private WebElement validator;
 
 

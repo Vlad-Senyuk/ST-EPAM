@@ -9,10 +9,10 @@ public class ShoppingPage extends AbstractPage {
 
     private final String BASE_URL = "https://primeraair.com/travel-info/shopping-onboard/";
 
-    @FindBy(xpath = "/html/body/div[3]/div/div/div[3]/div/div[1]/form/div/input")
+    @FindBy(name = "t")
     private WebElement inputQueryOfSearch;
 
-    @FindBy(xpath = "/html/body/div[3]/div/div/div[3]/div/div[1]/form/div/button")
+    @FindBy(className = "icon-search")
     private WebElement searchButton;
 
     public ShoppingPage(WebDriver driver) {

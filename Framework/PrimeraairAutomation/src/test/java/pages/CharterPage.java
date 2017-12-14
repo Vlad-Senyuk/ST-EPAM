@@ -9,6 +9,7 @@ public class CharterPage extends AbstractPage {
 
     private final String BASE_URL = "https://primeraair.com/about-us/charters/";
 
+    //without attributes
     @FindBy(xpath = "/html/body/div[3]/div/div[1]/a[1]/span[2]")
     private WebElement printButton;
 
